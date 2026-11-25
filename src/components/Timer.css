@@ -1,0 +1,154 @@
+.timer {
+  --accent: var(--ember);
+  width: min(400px, 92vw);
+  padding: 1.25rem 1.5rem 1rem;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--night) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--wood) 70%, transparent);
+  box-shadow:
+    0 20px 50px color-mix(in srgb, var(--night) 60%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--paper) 8%, transparent);
+  backdrop-filter: blur(6px);
+  text-align: center;
+}
+.timer.mode-short { --accent: var(--forest); }
+.timer.mode-long  { --accent: var(--dusk); }
+
+.timer__modes {
+  display: flex;
+  gap: 0.25rem;
+  justify-content: center;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+.timer__modes button {
+  flex: 1;
+  padding: 0.35rem 0.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mist);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  transition: background 0.25s, color 0.25s;
+}
+.timer__modes button:hover { color: var(--paper); }
+.timer__modes button.is-active {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.timer__time {
+  margin: 0.6rem 0 0.4rem;
+  font-size: clamp(3.5rem, 12vw, 5rem);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+  text-shadow: 0 0 24px color-mix(in srgb, var(--flame) 35%, transparent);
+}
+
+.timer__bar {
+  height: 4px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--mist) 15%, transparent);
+  overflow: hidden;
+}
+.timer__bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  transition: transform 0.3s linear;
+}
+
+.timer__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.timer__controls button {
+  border: 0;
+  border-radius: 999px;
+  transition: transform 0.15s, background 0.25s;
+}
+.timer__controls button:active { transform: scale(0.96); }
+.timer__controls .primary {
+  min-width: 140px;
+  padding: 0.65rem 1.4rem;
+  background: var(--accent);
+  color: var(--paper);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.timer__controls .ghost {
+  width: 42px;
+  height: 42px;
+  background: color-mix(in srgb, var(--ink) 70%, transparent);
+  color: var(--mist);
+  font-size: 1.1rem;
+}
+.timer__controls .ghost:hover { color: var(--paper); }
+
+.timer__tally {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--mist);
+}
+.timer__tally strong { color: var(--paper); }
+
+.timer__cycle {
+  display: inline-flex;
+  gap: 6px;
+}
+.timer__cycle i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--plum);
+}
+.timer__cycle i.is-done {
+  background: var(--ember);
+  border-color: var(--ember);
+  box-shadow: 0 0 8px var(--ember);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--flame-core);
+  outline-offset: 2px;
+}
+
+/* ── Calm mode: only the time remains, soft and dim ── */
+.timer,
+.timer__modes,
+.timer__bar,
+.timer__controls,
+.timer__tally,
+.timer__time {
+  transition: opacity 0.3s, background 0.3s, border-color 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
+}
+.is-calm .timer {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  transition-duration: 1.6s;
+}
+.is-calm .timer__modes,
+.is-calm .timer__bar,
+.is-calm .timer__controls,
+.is-calm .timer__tally {
+  opacity: 0;
+  pointer-events: none;
+  transition-duration: 1.6s;
+}
+.is-calm .timer__time {
+  opacity: 0.55;
+  transition-duration: 1.6s;
+}

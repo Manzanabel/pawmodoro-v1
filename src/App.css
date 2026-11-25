@@ -1,0 +1,73 @@
+.app {
+  position: relative;
+  height: 100%;
+}
+
+/* The UI floats over the middle wall, between the window and the fireplace. */
+.app__ui {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7vh;
+}
+
+.app__title {
+  margin: 0 0 0.75rem;
+  font-weight: 400;
+  font-size: 1.1rem;
+  letter-spacing: 0.35em;
+  text-transform: lowercase;
+  color: var(--paper);
+  opacity: 0.75;
+}
+
+.app__hint {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--mist);
+  opacity: 0.6;
+}
+
+/* Top-right quick controls: mute + menu */
+.app__corner {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 2;
+  display: flex;
+  gap: 0.5rem;
+}
+.round-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--wood) 70%, transparent);
+  background: color-mix(in srgb, var(--night) 72%, transparent);
+  backdrop-filter: blur(6px);
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: box-shadow 0.25s, transform 0.15s;
+}
+.round-button:hover { transform: translateY(-1px); }
+.round-button.is-playing {
+  box-shadow: 0 0 14px color-mix(in srgb, var(--ember) 45%, transparent);
+}
+
+/* ── Calm mode ──
+ * Fade out slowly when going calm, come back quickly on activity.
+ * (A transition declared on the destination state is the one that applies.) */
+.app__corner,
+.app__title,
+.app__hint {
+  transition: opacity 0.3s;
+}
+.app.is-calm { cursor: none; }
+.app.is-calm .app__corner,
+.app.is-calm .app__title,
+.app.is-calm .app__hint {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.6s;
+}
